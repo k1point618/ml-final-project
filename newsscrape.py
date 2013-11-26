@@ -75,15 +75,15 @@ class Article:
         Article.COUNT += 1
 
     def __str__(self):
-        return str(self.TICKER) + "\n\n" \
-            + str(self.SOURCE) + "\n\n" \
-            + str(self.URL) + "\n\n" \
-            + str(self.TITLE) + "\n\n" \
-            + str(self.TIME) + "\n\n" \
-            + str(self.BODY) + "\n\n";
+        return str(self.TICKER) + "\n" \
+            + str(self.SOURCE) + "\n" \
+            + str(self.URL) + "\n" \
+            + str(self.TITLE) + "\n" \
+            + str(self.TIME) + "\n" \
+            + str(self.BODY) + "\n";
 
     def write_to_file(self):
-        f = open("data/" + str(self.TICKER) + str(Article.COUNT) + ".data", 'w+')
+        f = open("data/" + str(self.TICKER) + "_" + str(Article.COUNT) + ".data", 'w+')
         f.write(str(self))
         f.close()
         print "... wrote " + str(Article.COUNT) + " file to disk"
