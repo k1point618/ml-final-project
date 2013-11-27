@@ -7,7 +7,9 @@ public interface StockHistory {
 
     public Set<Date> getDates();
 
-    public Date getNext(Date date);
-
     public DayQuote getValue(Date date);
+
+    public Date getNextAfter(Date today);
+
+    public Date getLastUpTo(Date today);
 }

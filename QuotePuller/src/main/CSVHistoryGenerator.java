@@ -30,13 +30,12 @@ public class CSVHistoryGenerator {
         br.readLine(); // ignore header
         // header should be: Date Open High Low Close Volume
 
-        Map<Date, Date> successors = new HashMap<Date, Date>();
         Map<Date, DayQuote> values = new HashMap<Date, DayQuote>();
 
         Date nextTradingDay = null;
         while (br.ready()) {
             String line = br.readLine();
-            String[] columns = line.split("\t");
+            String[] columns = line.split(",");
 
             // TODO timezone?
             Date today = format.parse(columns[0]);
@@ -49,13 +48,9 @@ public class CSVHistoryGenerator {
             DayQuote quote = new DayQuote(high, low, open, close, volume);
 
             values.put(today, quote);
-            if (nextTradingDay != null) {
-                successors.put(today, nextTradingDay);
-            }
-            nextTradingDay = today;
         }
         br.close();
-        return new StockHistoryImpl(successors, values);
+        return new StockHistoryImpl(values);
     }
 
 }
