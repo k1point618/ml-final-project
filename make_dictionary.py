@@ -47,38 +47,70 @@ def read_from_file(filename):
         return ArticleFile(ticker, source, url, title, time, body, fileid)
     pass
 
+
+def article_wordlist(article):
+    toReturn = []
+    for word in re.findall(r"[\w']+", article.BODY) + re.findall(r"[\w']+", article.TITLE):
+        word = filter(lambda x: x in string.printable, word)
+        word = word.lower()
+        if wordnet.synsets(word):
+            toReturn.append(word)
+    return toReturn
+
+# Make dictionary from articles
+def make_dictionary(articles):
+    wordlist = set()
+    for article in articles:
+        if article != None:
+            wordlist = wordlist.union(set(article_wordlist(article)))
+    sorted_list = sorted(wordlist, key=lambda item: (float('inf'), item)) # sort a set
+    sorted_list = sorted_list[sorted_list.index("a"):]
+    return sorted_list
+
 # Construct a dictionary based on all files in a certain directory.
 import os
 import glob
 import string
 import re
+from nltk.corpus import wordnet
 
 DIR = "data_11262013/"
-wordlist = set()
 articles = []
 
 # Make article objects from files
 for root, dirs, files in os.walk(DIR):
     for file_name in files:
         articles.append(read_from_file(os.path.join(root, file_name)))
+print "... constructed article objects. Number of articles: " + str(len(articles))
 
+# Make dictionary from Artcles.
+dictionary = make_dictionary(articles)
+print "... finished generating dictionary. Length of dictionary: " + str(len(dictionary))
 
-# Make dictionary from articles
+# Should probably write dicationry to file.
+outfile = open(DIR + "dictionary.mat", 'w+')
+for i in range(len(dictionary)):
+    outfile.write(str(i+1) + '\t' + str(dictionary[i]) + '\n')
+outfile.close()
+print "... write dictionary to file at: " + str(outfile.name)
+
+#Filter dictionary
+articles = filter(lambda x: x != None, articles)
+
+# Write each article into file. 
+outfile = open(DIR + "news.mat", 'w+')
 for article in articles:
-    if article != None:
-        for word in re.findall(r"[\w']+", article.BODY) + re.findall(r"[\w']+", article.TITLE):
-            word = filter(lambda x: x in string.printable, word)
-            word = word.lower()
-            if word not in wordlist:
-                wordlist.add(word)
-    
-sorted_list = sorted(wordlist, key=lambda item: (float('inf'), item))
-sorted_list = sorted_list[sorted_list.index('a'):]
-print sorted_list
-print len(sorted_list)
+    wordlist = article_wordlist(article)
+    vector = [0] * len(dictionary)
+    for word in wordlist:
+        if word in dictionary:
+            i = dictionary.index(word)
+            vector[i] += 1
 
-
-
+    vector_str = str(vector)[1:-1]
+    outfile.write(vector_str + "\n")
+outfile.close()
+print "... wrote to " + str(outfile.name)
 
 
 
