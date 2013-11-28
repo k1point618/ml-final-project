@@ -49,6 +49,10 @@ public class DateFinderCli {
             String name = file.getName();
             String[] tokens = name.split("_");
 
+            if (name.endsWith(".mat")) {
+                continue; // ignore
+            }
+
             if (tokens.length != 2) {
                 throw new IllegalArgumentException("bad file name: " + name);
             }

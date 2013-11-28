@@ -38,14 +38,20 @@ public class CSVHistoryGenerator {
             String[] columns = line.split(",");
 
             // TODO timezone?
-            Date today = format.parse(columns[0]);
-            double open = Double.parseDouble(columns[1]);
-            double high = Double.parseDouble(columns[2]);
-            double low = Double.parseDouble(columns[3]);
-            double close = Double.parseDouble(columns[4]);
-            double volume = Double.parseDouble(columns[5]);
+            Date today;
+            DayQuote quote;
+            try {
+                today = format.parse(columns[0]);
+                double open = Double.parseDouble(columns[1]);
+                double high = Double.parseDouble(columns[2]);
+                double low = Double.parseDouble(columns[3]);
+                double close = Double.parseDouble(columns[4]);
+                double volume = Double.parseDouble(columns[5]);
 
-            DayQuote quote = new DayQuote(high, low, open, close, volume);
+                quote = new DayQuote(high, low, open, close, volume);
+            } catch (NumberFormatException e) {
+                throw new RuntimeException(line, e);
+            }
 
             values.put(today, quote);
         }
