@@ -74,7 +74,7 @@ import string
 import re
 from nltk.corpus import wordnet
 
-DIR = "data_11262013/"
+DIR = "data_11302013/"
 articles = []
 
 # Make article objects from files
