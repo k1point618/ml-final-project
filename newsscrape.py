@@ -94,7 +94,8 @@ class Article:
         f = open("data/" + str(self.TICKER) + "_" + str(Article.COUNT) + ".data", 'w+')
         f.write(str(self))
         f.close()
-        print "... wrote " + str(Article.COUNT) + " file to disk"
+        if Article.COUNT %100 == 0:
+            print "... wrote " + str(Article.COUNT) + " file to disk"
 
 
 class Counter:
@@ -142,6 +143,7 @@ def parse_reuters(tick, url):
     article_time = parser.parse(time)
     if article_time > now + relativedelta(weeks=-1):
         print "discarding.... " + str(time)
+        Article.COUNT -= 1
         return
     return article
 
@@ -192,7 +194,9 @@ COMP_TICKS = ["AAPL", "MSFT", "GOOG", "FB", "YHOO", \
                 "ORCL", "IBM", "AMZN", "NOK", "INFY"\
                 "QCOM", "INTC", "CSCO", "SAP", "TSM", \
                 "DCM", "HPQ", "EMC", "TXN", "BIDU", \
-                "ADP", "ITW", "VMW", "ETN", "CRM"] 
+                "ADP", "ITW", "VMW", "CRM", "CMCSA", \
+                "GILD", "AMGN", "BIIB","CELG", "EBAY", \
+                "SBUX"] 
                 # data_11302013
                 # Nasdaq Technology companies ranked by market cap
 
