@@ -21,8 +21,8 @@ shuffY = Y(perm, :);
 
 N = floor(percent_training * M);
 
-trainX = shuffX(1:N, :);
-trainY = shuffY(1:N,:);
+trainX = shuffX(1:(N-1), :);
+trainY = shuffY(1:(N-1),:);
 testX = shuffX(N:end,:);
 testY = shuffY(N:end,:);
 
