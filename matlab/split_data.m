@@ -16,14 +16,14 @@ M = size(Y, 1);
 
 perm = randperm(M);
 
-shuffX = X(:, perm);
+shuffX = X(perm, :);
 shuffY = Y(perm, :);
 
 N = floor(percent_training * M);
 
-trainX = shuffX(:,1:N);
+trainX = shuffX(1:N, :);
 trainY = shuffY(1:N,:);
-testX = shuffX(:,N:end);
+testX = shuffX(N:end,:);
 testY = shuffY(N:end,:);
 
 end
