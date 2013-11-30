@@ -1,4 +1,4 @@
-function [ trainX, trainY, testX, testY ] = split_data(percent_training, X, Y)
+function [ trainX, trainY, testX, testY ] = split_data(X, Y, percent_training)
  % Takes in X that is d x M; Y that is M x 1. 
  % X's are features of dimention d;
  % Y's are the M labels.
