@@ -7,5 +7,5 @@ function [ test_error ] = test(trainX,trainY,model,testX,testY)
 end
 
 function [ y ] = evaluate(trainX, trainY, model, x)
-    y = sum(arrayfun( @(i) trainY(i)*model.alpha(i)*model.kernel(trainX(i),x), 1:length(trainY)));
+    y = sum(arrayfun( @(i) trainY(i)*model.alpha(i)*model.kernel(trainX(i),x,model.kparam) , 1:length(trainY)));
 end
