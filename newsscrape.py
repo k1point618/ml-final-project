@@ -1,5 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
+from dateutil import parser
+from dateutil.relativedelta import *
+import commands
 
 def write_to_file(tags, responses):
     for i in range(len(tags)):
@@ -53,8 +56,12 @@ def get_sources(news_urls):
     for url in news_urls:
         if url.find("www.reuters.com") >=0 and url.find("http://") != 0:
             sources.append("reuters.dev")
-        else:
+        elif len(url.split('url=http://')) >= 2:
             real_url = url.split('url=http://')[1]
+            source = real_url.split('/')[0]
+            sources.append(source)
+        else:
+            real_url = url.split('url=https://')[1]
             source = real_url.split('/')[0]
             sources.append(source)
     return sources
@@ -73,6 +80,7 @@ class Article:
         self.BODY = body
         self.id = Article.COUNT
         Article.COUNT += 1
+
 
     def __str__(self):
         return str(self.TICKER) + "\n" \
@@ -130,6 +138,11 @@ def parse_reuters(tick, url):
     #print ("time", time)
 
     article = Article(tick, None, url, title, time, body)
+    now = parser.parse(commands.getoutput("date"))
+    article_time = parser.parse(time)
+    if article_time > now + relativedelta(weeks=-1):
+        print "discarding.... " + str(time)
+        return
     return article
 
 
@@ -175,8 +188,14 @@ def write_data(tick, source, url):
 
 ## Start ##
    
-COMP_TICKS = ["AAPL", "MSFT", "GOOG", "FB", "YHOO", "ORCL", "IBM", "AMZN", "NOK"]
-#COMP_TICKS = ["AAPL"]
+COMP_TICKS = ["AAPL", "MSFT", "GOOG", "FB", "YHOO", \
+                "ORCL", "IBM", "AMZN", "NOK", "INFY"\
+                "QCOM", "INTC", "CSCO", "SAP", "TSM", \
+                "DCM", "HPQ", "EMC", "TXN", "BIDU", \
+                "ADP", "ITW", "VMW", "ETN", "CRM"] 
+                # data_11302013
+                # Nasdaq Technology companies ranked by market cap
+
 #SOURCES = ["www.reuters.com", "www.valuewalk.com", "seekingalpha.com", "www.nextiphonenews.com"]
 SOURCES = ["reuters.dev"]
 K = len(COMP_TICKS)
