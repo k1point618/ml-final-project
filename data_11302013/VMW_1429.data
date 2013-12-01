@@ -1,6 +1,0 @@
-VMW
-reuters.dev
-http://www.google.com/url?source=finance&q=http%3A%2F%2Fwww.reuters.com%2Ffinance%2Fstocks%2FVMW%2Fkey-developments%2Farticle%2F2820660&ei=fnKaUoB95NfRAZwk&usg=AFQjCNGW1MajlZkCTy6Czz8C-Jnt-nz0Gg
-Fortinet Inc Collaborates With VMware Inc To Deliver Advanced Security Services For Unified Virtual And Physical Networks
-Monday, 26 Aug 2013 12:00pm EDT
-Fortinet Inc announced a proof of concept designed to secure traffic traversing virtual networks at the hypervisor level. With this approach, the security enforcement point is no longer required to be directly in the flow of traffic on the physical network and allows for injecting security controls before the traffic traverses the virtual network layer. Specifically, the proof of concept will show secured traffic flow in a VMware virtualized network environment that highlights security policy enforcement of communication across and between physical and logical workloads. This proof of concept will debut at VMworld(R) 2013 in San Francisco, August 25-29 in booth (#642). 
