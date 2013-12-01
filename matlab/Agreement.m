@@ -8,8 +8,6 @@ n = length(y);  % y is n x 1
 K = feval(@Krb,X,X,svm.kparam);
 %K = diag(y)*K*diag(y);
 
-%size(K)
-
 alpha = svm.alpha .* y;
 agreement = y .* (K*alpha) * svm.gamma;
 

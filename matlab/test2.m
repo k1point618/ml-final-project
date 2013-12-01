@@ -9,8 +9,9 @@ K = feval(@Krb,testX,trainX,svm.kparam);
 alpha = svm.alpha .* trainY;
 agreement = testY .* (K*alpha) * svm.gamma;
 
-errors = (agreement <= 0);
 
-error_rate = sum(errors)/length(errors);
+errors = sum(agreement < 0) + .5*sum(agreement == 0);
+
+error_rate = errors/length(testY);
 
 end
