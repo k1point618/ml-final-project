@@ -9,3 +9,9 @@ We first run an SVM to classify the articles, taking into account slack variable
 Then we will devise some more advanced methods. 
 
 The result awaits....... 
+
+
+Workflow:
+
+1. Generate Data:
+	i) run newsscrape with company names
