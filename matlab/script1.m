@@ -1,12 +1,18 @@
 load('news.mat');
 X = news;
 load('after_day_label');
-y_signed = after_day_label;
-y = arrayfun( @(a) ( a> 0)*2 - 1,y_signed);
+Y = after_day_label;
 
-[ trainX, trainY, testX, testY ] = split_data(X, y, .8);
+NUM_ITERATION = 10;
+errors = zeros(NUM_ITERATION, 1);
 
+for i=1:NUM_ITERATION
+    [ trainX, trainY, testX, testY ] = split_data(X, sign(Y+0.00001), .85);
 
-model = svm_build(trainX, trainY, 1, 1);
-test(trainX, trainY, model, trainX, trainY)
-test(trainX, trainY, model, testX, testY)
+    model = svm_build(trainX, trainY, 1, 1)
+    %test(trainX, trainY, model, trainX, trainY)
+    errors(i) = test(trainX, trainY, model, testX, testY);
+    
+end
+
+errors
