@@ -1,1 +1,1 @@
-% Shifting window
+% Take away insignificant labels

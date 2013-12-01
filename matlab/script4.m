@@ -16,6 +16,7 @@ avg_train_errors = zeros(1, length(betas));
 for j=1:length(C)
     
     j
+    % script-FOUR is for REGRESSION
     
     test_errors = zeros(1, NUM_ITERATION);
     train_errors = zeros(1, NUM_ITERATION);

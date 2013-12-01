@@ -1,7 +1,6 @@
 load('news.mat');
 X = news;
 
-
 load('after_day_label');
 %y = after_day_label;
 y = arrayfun( @(a) ( a> 0)*2 - 1,after_day_label);
