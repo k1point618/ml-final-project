@@ -6,9 +6,9 @@ Y = after_day_label;
 
 NUM_ITERATION = 5;
 %betas = [0.2:0.2:1, 2:2:20];
-%betas=[0.001:0.001:0.01];
+%betas=[0.01:0.01:0.1];
 
-C = [0.1:0.1:1];
+C = [0.1:0.1:1]
 
 avg_test_errors = zeros(1, length(betas));
 avg_train_errors = zeros(1, length(betas));
@@ -23,9 +23,9 @@ for j=1:length(C)
     for i=1:NUM_ITERATION
         [ trainX, trainY, testX, testY ] = split_data(X, sign(Y+0.00001), .85);
 
-        model = svm_build(trainX, trainY, C(j), 0.08);
-        train_errors(i) = test2(trainX, trainY, model, trainX, trainY);
-        test_errors(i) = test2(trainX, trainY, model, testX, testY);
+        model = build_reg(trainX,trainY,C(j),@Krb,0.001);
+        train_errors(i) = 1-sum(eval_reg(trainX, model).*trainY >0)/length(trainY);
+        test_errors(i) = 1-sum(eval_reg(testX, model).*testY >0)/length(testY);
 
     end
 
@@ -37,8 +37,8 @@ end
 avg_test_errors
 avg_train_errors
 
-plot(C, avg_test_errors);
+plot(betas, avg_test_errors);
 hold on;
-plot(C, avg_train_errors);
+plot(betas, avg_train_errors);
 hold off;
 
