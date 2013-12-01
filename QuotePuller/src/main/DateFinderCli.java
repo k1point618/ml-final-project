@@ -15,6 +15,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *
+ * @author ernest
+ *
+ *         Finds the ticker prices used to construct sample data labels.
+ *
+ *         Output format: - row i corresponds with article i - each row contains
+ *         [today close],[tomorrow open],[tomorrow close],[today timestamp]
+ */
 public class DateFinderCli {
 
     private final File inputDirectory, outputFile;
@@ -44,6 +53,7 @@ public class DateFinderCli {
     public void run() throws IOException, ParseException {
 
         Map<Integer, String> finalAnswer = new HashMap<Integer, String>();
+        System.out.println("Reading from " + inputDirectory.getCanonicalPath());
         File[] files = inputDirectory.listFiles();
         for (File file : files) {
 
@@ -74,10 +84,12 @@ public class DateFinderCli {
 
             BufferedReader br = new BufferedReader(new FileReader(file));
 
-            br.readLine();
-            br.readLine();
-            br.readLine();
-            br.readLine(); // ignore the first 4 lines
+            // ignore the first 4 lines
+            br.readLine(); // ticker name
+            br.readLine(); // source
+            br.readLine(); // url
+            br.readLine(); // title
+
             Date datetime = format.parse(br.readLine());
 
             Date today = round(datetime);
@@ -94,7 +106,7 @@ public class DateFinderCli {
             }
 
             String line = quote1.getClose() + "," + quote2.getOpen() + ","
-                    + quote2.getClose();
+                    + quote2.getClose() + "," + today.getTime();
 
             if (finalAnswer.containsKey(id)) {
                 throw new RuntimeException("Ids must be unique! " + id
@@ -118,6 +130,7 @@ public class DateFinderCli {
             lines.add(line);
         }
         System.out.println("Outputing data for " + lines.size() + " articles");
+        System.out.println("Outputing to " + this.outputFile.getCanonicalPath());
         write(lines, this.outputFile);
     }
 
