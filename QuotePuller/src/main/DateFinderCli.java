@@ -44,12 +44,14 @@ public class DateFinderCli {
     public void run() throws IOException, ParseException {
 
         Map<Integer, String> finalAnswer = new HashMap<Integer, String>();
-        for (File file : inputDirectory.listFiles()) {
+        File[] files = inputDirectory.listFiles();
+        for (File file : files) {
 
             String name = file.getName();
             String[] tokens = name.split("_");
 
-            if (name.endsWith(".mat")) {
+            if (!name.endsWith(".data")) {
+                System.out.println("ignoring " + name);
                 continue; // ignore
             }
 
@@ -93,6 +95,12 @@ public class DateFinderCli {
 
             String line = quote1.getClose() + "," + quote2.getOpen() + ","
                     + quote2.getClose();
+
+            if (finalAnswer.containsKey(id)) {
+                throw new RuntimeException("Ids must be unique! " + id
+                        + " already used!");
+            }
+
             finalAnswer.put(id, line);
         }
 
@@ -104,10 +112,12 @@ public class DateFinderCli {
 
             if (line == null) {
                 throw new IllegalArgumentException(
-                        "Ids must go up sequentially starting with 1");
+                        "Ids must go up sequentially starting with 1. Couldnt find "
+                                + id);
             }
             lines.add(line);
         }
+        System.out.println("Outputing data for " + lines.size() + " articles");
         write(lines, this.outputFile);
     }
 
