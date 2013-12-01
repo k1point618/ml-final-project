@@ -6,7 +6,7 @@ article_labels = csvread(path1);
 
 news = csvread(strcat(dir, '/news.mat'));
 
-% TODO sort here ??
+[ news, article_labels ] = sort_by_time( news, article_labels );
 
 next_day_labels = article_labels(:,3) - article_labels(:,2);
 after_day_labels = article_labels(:,2) - article_labels(:,1);
