@@ -3,7 +3,7 @@
 
 load('data.mat');
 X = (news > 0);
-y = sign(after_day_labels + 00001);
+y = sign(after_day_labels + .00001);
 [ trainX, trainY, testX, testY ] = split_data(X, y, .8);
 
 
