@@ -1,0 +1,6 @@
+AMZN
+reuters.dev
+http://www.google.com/url?source=finance&q=http%3A%2F%2Fwww.reuters.com%2Ffinance%2Fstocks%2FAMZN.O%2Fkey-developments%2Farticle%2F2468240&ei=k4aaUviwNoLP0gGC3AE&usg=AFQjCNHXn5jYmdYsRVOpIbhsHZ_Lft0r9w
+Amazon.com's Amazon Web Services Announces AWS Storage Gateway to Connect Enterprise Data with Cloud
+Wednesday, 25 Jan 2012 03:46am EST
+Amazon.com announced the AWS Storage Gateway, a service that provides enterprises with a new option to securely upload data to the AWS cloud for scalable, reliable, cost-effective storage. The AWS Storage Gateway connects an on-premises software appliance with cloud-based storage for seamless integration between on-premises IT environments and AWS storage infrastructure. The service provides low-latency performance by maintaining data in on-premises storage hardware while asynchronously uploading data to AWS, where it is encrypted and securely stored in the Amazon Simple Storage Service (Amazon S3). The AWS Storage Gateway supports industry standard storage protocols, enabling customers to take advantage of cloud based storage without re-architecting existing applications. 

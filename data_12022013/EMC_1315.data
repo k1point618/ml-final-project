@@ -1,0 +1,6 @@
+EMC
+reuters.dev
+http://www.google.com/url?source=finance&q=http%3A%2F%2Fwww.reuters.com%2Ffinance%2Fstocks%2FEMC%2Fkey-developments%2Farticle%2F2517233&ei=mIaaUrjJGYLP0gGC3AE&usg=AFQjCNHS4gefMfXa3AGo4OrsE1iG3njUkg
+Whamcloud And Emc Corp Collaborate On PLFS And Lustre Integration
+Monday, 9 Apr 2012 06:01am EDT
+Whamcloud announced it is extending its working relationship with Emc Corp. The relationship between the two companies began over a year ago and promotes the open source availability of Lustre. Whamcloud and EMC, a fellow member of the OpenSFS consortium, are extending their collaboration for an additional year. Whamcloud and EMC will continue working together to provide deeper integration between the Parallel Log-structured File System (PLFS) and Lustre. As part of their joint efforts, Whamcloud and EMC will continue augmenting Lustre's IO functionality, including the enhancement of small file IO and metadata performance. The two companies will look for multiple ways to contribute to the future feature development of Lustre. As part of the collaboration, Whamcloud and EMC will be working closely to modify some portions of the Lustre client and core code, with the goal of getting the Lustre client included in the upstream Linux kernel. 

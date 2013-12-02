@@ -76,7 +76,7 @@ import re
 from nltk.corpus import wordnet
 import sys
 
-DIR = "data_11302013/"
+DIR = "data_12022013/"
 articles = []
 TITLE_ONLY = False
 
