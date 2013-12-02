@@ -4,7 +4,7 @@
 
 load('data.mat');
 X = (news > 0); % rounding for nbc 
-y = sign(after_day_labels + 00001);
+y = sign(after_day_labels + .00001);
 [ trainX2, trainY, testX, testY ] = split_data(X, y, .8);
 
 
