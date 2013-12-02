@@ -10,7 +10,7 @@ y = sign(after_day_labels + 00001);
 model = nbc_build(trainX, trainY);
 
 trainOut = trainX * model.b' + model.a;
-train_error = sum(trainOut .* trainY > 0 )/length(trainY)
+train_correctness = sum(trainOut .* trainY > 0 )/length(trainY)
 
 testOut = testX * model.b' + model.a;
-test_error = sum(testOut .* testY > 0 )/length(testY)
+test_correctness = sum(testOut .* testY > 0 )/length(testY)

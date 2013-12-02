@@ -12,7 +12,7 @@ assert(sum(sum((X == 0) + (X == 1))) == numel(X));
 
 % # of words
 m = size(X,2);
-size(X)
+size(X);
 
 pos = find(y == 1);
 neg = find(y == -1);
