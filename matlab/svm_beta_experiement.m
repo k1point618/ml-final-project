@@ -1,6 +1,6 @@
-load('data.mat');
-X = news;
+load('data_other_features.mat');
 Y = after_day_labels;
+X = rand(length(after_day_labels), 10);
 
 NUM_ITERATION = 5;
 betas = [0.001:0.001:0.01 0.015:0.005:0.05 0.6:0.1:1];
@@ -11,6 +11,7 @@ avg_train_errors = zeros(1, length(betas));
 
 for j=1:length(betas)
 
+    j
     test_errors = zeros(1, NUM_ITERATION);
     train_errors = zeros(1, NUM_ITERATION);
 
