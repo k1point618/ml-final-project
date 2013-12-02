@@ -73,9 +73,17 @@ import glob
 import string
 import re
 from nltk.corpus import wordnet
+import sys
 
 DIR = "data_11302013/"
 articles = []
+TITLE_ONLY = False
+
+if __name__ == "__main__":
+    args = sys.argv[1:]
+    if len(args) > 0 and args[0] == 'title_only':
+        print "TITLE ONLY"
+        TITLE_ONLY = True
 
 # Make article objects from files
 for root, dirs, files in os.walk(DIR):
@@ -83,12 +91,22 @@ for root, dirs, files in os.walk(DIR):
         articles.append(read_from_file(os.path.join(root, file_name)))
 print "... constructed article objects. Number of articles: " + str(len(articles))
 
+# If ONLY want title: remove BODY. 
+if TITLE_ONLY:
+    for article in articles:
+        if article != None:
+            article.BODY = "";
+
 # Make dictionary from Artcles.
 dictionary = make_dictionary(articles)
 print "... finished generating dictionary. Length of dictionary: " + str(len(dictionary))
 
 # Should probably write dicationry to file.
-outfile = open(DIR + "dictionary.mat", 'w+')
+if TITLE_ONLY:
+    outfile = open(DIR + "dictionary_title_only.mat", 'w+')
+else:
+    outfile = open(DIR + "dictionary.mat", 'w+')
+
 for i in range(len(dictionary)):
     outfile.write(str(i+1) + '\t' + str(dictionary[i]) + '\n')
 outfile.close()
@@ -98,7 +116,11 @@ print "... write dictionary to file at: " + str(outfile.name)
 articles = filter(lambda x: x != None, articles)
 
 # Write each article into file. 
-outfile = open(DIR + "news.mat", 'w+')
+if TITLE_ONLY:
+    outfile = open(DIR + "news_title_only.mat", 'w+')
+else:
+    outfile = open(DIR + "news.mat", 'w+')
+
 for article in articles:
     wordlist = article_wordlist(article)
     vector = [0] * len(dictionary)
@@ -111,6 +133,7 @@ for article in articles:
     outfile.write(vector_str + "\n")
 outfile.close()
 print "... wrote to " + str(outfile.name)
+
 
 
 

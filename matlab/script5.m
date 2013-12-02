@@ -1,1 +1,0 @@
-% Take away insignificant labels
