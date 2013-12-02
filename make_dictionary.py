@@ -63,6 +63,7 @@ def make_dictionary(articles):
     for article in articles:
         if article != None:
             wordlist = wordlist.union(set(article_wordlist(article)))
+            wordlist.add(article.TICKER.lower())
     sorted_list = sorted(wordlist, key=lambda item: (float('inf'), item)) # sort a set
     sorted_list = sorted_list[sorted_list.index("a"):]
     return sorted_list
@@ -124,6 +125,8 @@ else:
 for article in articles:
     wordlist = article_wordlist(article)
     vector = [0] * len(dictionary)
+    i = dictionary.index(article.TICKER.lower())
+    vector[i] += 1
     for word in wordlist:
         if word in dictionary:
             i = dictionary.index(word)
