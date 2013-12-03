@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -93,6 +94,8 @@ public class DateFinderCli {
             Date datetime = format.parse(br.readLine());
 
             Date today = round(datetime);
+            List<Double> previousValues = getPrevious(history, today, 15);
+
             Date mostRecentTradingDay = history.getLastUpTo(today);
             Date nextTradingDay = history.getNextAfter(today);
 
@@ -106,7 +109,8 @@ public class DateFinderCli {
             }
 
             String line = quote1.getClose() + "," + quote2.getOpen() + ","
-                    + quote2.getClose() + "," + today.getTime();
+                    + quote2.getClose() + "," + today.getTime() + ","
+                    + join(previousValues);
 
             if (finalAnswer.containsKey(id)) {
                 throw new RuntimeException("Ids must be unique! " + id
@@ -132,6 +136,29 @@ public class DateFinderCli {
         System.out.println("Outputing data for " + lines.size() + " articles");
         System.out.println("Outputing to " + this.outputFile.getCanonicalPath());
         write(lines, this.outputFile);
+    }
+
+    private List<Double> getPrevious(StockHistory history, Date today, int n) {
+        List<Date> days = history.getLastNUpTo(today, n);
+        List<Double> values = new ArrayList<Double>();
+        for (Date day : days) {
+            DayQuote quote = history.getValue(day);
+            values.add(quote.getClose() - quote.getOpen());
+        }
+        return values;
+    }
+
+    private static String join(List<? extends Object> list) {
+        if (list.isEmpty()) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append(list.get(0).toString());
+        for (int i = 1; i < list.size(); i++) {
+            sb.append(",");
+            sb.append(list.get(i).toString());
+        }
+        return sb.toString();
     }
 
     private Date round(Date datetime) {
