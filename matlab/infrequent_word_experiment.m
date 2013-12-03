@@ -25,9 +25,7 @@ length(infrequent)
 
 X2 = X(:,frequent);
 
-result1 = LOOCV( X, y, C, beta);
-result2 = LOOCV( X2, y, C, beta);
+[test1, train1] = LOOCV( X, y, C, beta)
+[test2, train2] = LOOCV( X2, y, C, beta)
 
-test_error1 = result1(1)
-test_error2 = result2(1)
     
