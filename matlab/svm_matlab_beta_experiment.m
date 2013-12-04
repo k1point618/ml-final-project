@@ -2,7 +2,7 @@
 % in order to find the value of beta that gives the min error for the 
 % LOOCV(10%) test.
 
-load('___.mat');
+load('data.mat');
 X_s = S;
 X_v1 = V1;
 X_v2 = V2;
@@ -12,12 +12,10 @@ X_c1 = C1;
 X_c2 = C2;
 
 all_features = {X_s, X_v1, X_v2, X_v3, X_v4, X_c1, X_c2};
-%all_features = {X_s, X_v1};
 feature_str = {'S', 'V1', 'V2', 'V3', 'V4', 'C1', 'C2'};
-Y = y;
+Y = sign(y);
 
-betas = [0.001:0.001:0.01 0.02:0.01:0.1 0.2:0.1:1 2:10]; %40 values of beta.
-%betas = [0.001, 0.005];
+betas = [0.001:0.001:0.01 0.02:0.01:0.1 0.2:0.1:1 2:10]; %37 values of beta.
 C = 1;
 Variable = betas;
 
@@ -39,11 +37,12 @@ for i=1:length(all_features)
     for j=1:length(Variable)
 
         beta = Variable(j)
-        [avg_test_errors(j), avg_train_errors(j)] = LOOCV(X, sign(Y+0.00001), C, Variable(j));
+        assert(sum(Y==0)==0)
+        [avg_test_errors(j), avg_train_errors(j)] = LOOCV(X, Y, C, Variable(j));
 
     end
 
-    best_idx = find(min(avg_test_errors));
+    best_idx = find(avg_test_errors==min(avg_test_errors), 1, 'first');
     BETAS(i) = betas(best_idx);
     TRAIN_ERRORS(i) = avg_train_errors(best_idx);
     TEST_ERRORS(i) = avg_test_errors(best_idx);
