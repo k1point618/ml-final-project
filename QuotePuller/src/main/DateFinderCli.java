@@ -94,7 +94,7 @@ public class DateFinderCli {
             Date datetime = format.parse(br.readLine());
 
             Date today = round(datetime);
-            List<Double> previousValues = getPrevious(history, today, 15);
+            List<Double> previousValues = getPrevious(history, today, 20);
 
             Date mostRecentTradingDay = history.getLastUpTo(today);
             Date nextTradingDay = history.getNextAfter(today);
@@ -143,7 +143,11 @@ public class DateFinderCli {
         List<Double> values = new ArrayList<Double>();
         for (Date day : days) {
             DayQuote quote = history.getValue(day);
-            values.add(quote.getClose() - quote.getOpen());
+            values.add(quote.getClose());
+            values.add(quote.getHigh());
+            values.add(quote.getLow());
+            values.add(quote.getOpen());
+            values.add(quote.getVolume());
         }
         return values;
     }
