@@ -37,14 +37,14 @@ for i=1:length(all_features)
 
     for j=1:length(Variable)
 
-        C = Variable(j)
+        c = Variable(j)
         assert(sum(Y==0)==0)
         [avg_test_errors(j), avg_train_errors(j)] = LOOCV(X, Y, Variable(j), betas(i));
 
     end
 
     best_idx = find(avg_test_errors==min(avg_test_errors), 1, 'first');
-    BEST_C(i) = betas(best_idx)
+    BEST_C(i) = C(best_idx)
     TRAIN_ERRORS(i) = avg_train_errors(best_idx)
     TEST_ERRORS(i) = avg_test_errors(best_idx)
     RAW_DATA{1, i} = avg_test_errors;
