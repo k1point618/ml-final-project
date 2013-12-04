@@ -15,6 +15,8 @@ pos = pos(p1);
 neg = neg(p2);
 
 index = [pos(1:smaller) neg(1:smaller)];
+p3 = randperm(2*smaller);
+index = index(p3);
 
 X = X(index, :);
 y = y(index, :);
