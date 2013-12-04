@@ -1,6 +1,6 @@
 load('data.mat');
 X = news;
-y = sign(after_day_labels + 00001);
+Y = sign(after_day_labels + 0.00001);
 
 'Regression Experiment'
 
@@ -8,31 +8,17 @@ NUM_ITERATION = 5;
 %betas = [0.2:0.2:1, 2:2:20];
 %betas=[0.01:0.01:0.1];
 
-C = [0.1:0.1:1]
-beta = 0.001
+C = 1;
+betas = [0.1:0.1:1];
 
-avg_test_errors = zeros(1, length(C));
-avg_train_errors = zeros(1, length(C));
+avg_test_errors = zeros(1, length(betas));
+avg_train_errors = zeros(1, length(betas));
 
-for j=1:length(C)
+for j=1:length(betas)
 
-    j
-    % script-FOUR is for REGRESSION
+    betas(j)
 
-    test_errors = zeros(1, NUM_ITERATION);
-    train_errors = zeros(1, NUM_ITERATION);
-
-    for i=1:NUM_ITERATION
-        [ trainX, trainY, testX, testY ] = split_data(X, y, .85);
-
-        model = build_reg(trainX,trainY,C(j),@Krb,beta);
-        train_errors(i) = 1-sum(eval_reg(trainX, model).*trainY >0)/length(trainY);
-        test_errors(i) = 1-sum(eval_reg(testX, model).*testY >0)/length(testY);
-
-    end
-
-    avg_test_errors(j) = sum(test_errors)/length(test_errors);
-    avg_train_errors(j) = sum(train_errors)/length(train_errors);
+    [avg_test_errors(j), avg_train_errors(j)] = LOOCV_regression(X, Y, C, betas(j));
 
 end
 
