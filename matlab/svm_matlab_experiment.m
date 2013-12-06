@@ -6,7 +6,7 @@ load('data.mat');
 Y = after_day_labels;
 X = news;
 
-beta = % fill
-C = % fill
+beta = 3;
+C = 1;
 
 [test_error, train_error] = LOOCV(X, sign(Y+0.00001), C, beta)

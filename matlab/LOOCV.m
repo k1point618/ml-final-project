@@ -27,8 +27,9 @@ for i=1:length(intervals)-1
     testX = X(test_idx, :);
     testY = Y(test_idx, :);
     
-    SVMstruct = svmtrain(trainX,trainY,'Kernel_Function','rbf',...
-        'boxconstraint', C, 'rbf_sigma', sqrt((1/beta) * 0.5), 'method', 'QP');
+    options = optimset('maxiter',1500);
+    SVMstruct = svmtrain(trainX,trainY,'Kernel_Function','linear',...
+        'boxconstraint', C, 'method', 'QP', 'quadprog_opts',options);
     
 %     'training on...'
 %     length(trainY)
@@ -56,12 +57,12 @@ for i=1:length(intervals)-1
     
     
    train_errors(i) = sum((svmclassify(SVMstruct,trainX).*trainY)<0)/length(trainY);
-   test_errors(i) = sum((svmclassify(SVMstruct,testX).*testY)<0)/length(testY);
+   test_errors(i) = sum((svmclassify(SVMstruct,testX).*testY)<0)/length(testY)
     
 end
 
-test_var = sum(test_errors)/length(test_errors);
-train_var = sum(train_errors)/length(train_errors);
+test_var = sum(test_errors)/length(test_errors)
+train_var = sum(train_errors)/length(train_errors)
 % 
 % correct_pos = sum(test_errors.correct_pos)/length(test_errors.correct_pos);
 % correct_neg = sum(test_errors.correct_neg)/length(test_errors.correct_pos);
